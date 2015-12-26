@@ -18,14 +18,12 @@ module.exports = React.createClass({
     },
     tagChange: function(entity, tag, value) {
         var entities = this.state.entities;
-        console.log('TagChange: #', entity.EntityID, ' (', tag, ' => ', value,')');
         entities[entity.EntityID].setTag(tag, value);
         this.setState({entities: entities});
     },
     handle_packet: function(packet) {
-        console.log('Received packet ', packet);
-        var type = packet.Type
-        packet = packet[type]
+        var type = packet.Type;
+        packet = packet[type];
         switch(type) {
             case 'GameEntity':
             case 'Player':
@@ -51,7 +49,6 @@ module.exports = React.createClass({
         return Array(length - (number+'').length + 1).join('0') + number;
     },
     componentDidMount: function() {
-        console.log('Hello, world!');
         this.socket = new net.Socket();
         socket = this.socket;
         socket.setEncoding('utf-8');
@@ -110,6 +107,7 @@ module.exports = React.createClass({
         }
     },
     selectOption: function(index, target) {
+        this.setState({options: []});
         this.send_packet(this.socket, {
             Type: 'SendOption',
             SendOption: {
