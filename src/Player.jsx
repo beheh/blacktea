@@ -24,26 +24,26 @@ module.exports = React.createClass({
         var hand = [];
         var field = [];
         this.props.entities.forEach(function(entity) {
-            switch(entity.getCardType()) {
-                case CardType.HERO:
-                    hero = entity;
-                    break;
-                case CardType.HERO_POWER:
-                    heropower = entity;
-                    break;
-                default:
-                    switch(entity.getZone()) {
-                        case Zone.DECK:
-                            deck.push(entity);
-                            break;
-                        case Zone.HAND:
-                            hand.push(entity);
-                            break;
-                        case Zone.PLAY:
-                            field.push(entity);
-                            break;
-                    }
-            }
+                switch(entity.getZone()) {
+                    case Zone.DECK:
+                        deck.push(entity);
+                        break;
+                    case Zone.HAND:
+                        hand.push(entity);
+                        break;
+                    case Zone.PLAY:
+                        switch(entity.getCardType()) {
+                            case CardType.HERO:
+                                hero = entity;
+                                break;
+                            case CardType.HERO_POWER:
+                                heropower = entity;
+                                break;
+                            case CardType.MINION:
+                                field.push(entity);
+                                break;
+                        }
+                }
         });
         var currentmana = this.props.entity ? this.props.entity.getTag(GameTag.RESOURCES) - this.props.entity.getTag(GameTag.RESOURCES_USED) : 0;
         var mana = this.props.entity ? this.props.entity.getTag(GameTag.RESOURCES) : 0;
@@ -54,9 +54,9 @@ module.exports = React.createClass({
                 <p>{currentmana}/{mana} mana</p>
                 <Deck entities={deck} />
                 <h3>Hand</h3>
-                <CardList entities={hand} options={this.props.options} />
+                <CardList entities={hand} options={this.props.options} selectOption={this.props.selectOption} />
                 <h3>Field</h3>
-                <CardList entities={field} options={this.props.options} />
+                <CardList entities={field} options={this.props.options} selectOption={this.props.selectOption} />
             </div>
         );
     }

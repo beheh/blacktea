@@ -109,6 +109,15 @@ module.exports = React.createClass({
             alert('wat?');
         }
     },
+    selectOption: function(index, target) {
+        this.send_packet(this.socket, {
+            Type: 'SendOption',
+            SendOption: {
+                Index: index,
+                Target: target
+            }
+        })
+    },
     render: function() {
         var playerEntities = this.state.entities.filter(function(entity) {
             return entity.getCardType() == CardType.PLAYER;
@@ -119,7 +128,7 @@ module.exports = React.createClass({
                 return entity.getController() == player.EntityID;
             });
             return (
-                <Player key={player.EntityID} entity={player} entities={controlled} options={that.state.options} />
+                <Player key={player.EntityID} entity={player} entities={controlled} options={that.state.options} selectOption={that.selectOption}/>
             );
         });
         return (
