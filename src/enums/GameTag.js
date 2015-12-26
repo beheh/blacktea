@@ -10,5 +10,6 @@ module.exports = {
 	COST: 48,
 	ZONE: 49,
 	CONTROLLER: 50,
-	CARDTYPE: 202
+	CARDTYPE: 202,
+	ZONE_POSITION: 263
 };

@@ -23,6 +23,9 @@ module.exports = function(FullEntity) {
 	this.getController = function() {
 		return this.getTag(GameTag.CONTROLLER);
 	}
+	this.getZonePosition = function() {
+		return this.getTag(GameTag.ZONE_POSITION)
+	}
 
 	this.getTag = function(tag) {
 		if(typeof this.Tags[tag] === 'undefined') {
