@@ -119,7 +119,7 @@ module.exports = React.createClass({
                 return entity.getController() == player.EntityID;
             });
             return (
-                <Player entity={player} entities={controlled} options={that.state.options} />
+                <Player key={player.EntityID} entity={player} entities={controlled} options={that.state.options} />
             );
         });
         return (
